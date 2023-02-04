@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ocena extends Model
 {
-    use HasFactory;
+    protected $table = 'ocena';
+    public $primaryKey = 'id';
 }

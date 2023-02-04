@@ -15,7 +15,13 @@ return new class extends Migration
     {
         Schema::create('ocenas', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->timestamps('datum_i_vreme');
+            $table->foreignId('korisnik');
+            $table->foreignId('film');
+            $table->integer('ocena);
+            $table->text('poruka')->nullable(); 
+         
+           
         });
     }
 
