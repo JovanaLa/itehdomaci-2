@@ -17,7 +17,10 @@ class BioskopFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'naziv' => $this->faker->name(),
+            'kontakt' => $this->faker->phoneNumber(),
+            'lokacija' => $this->faker->location(),
+            'email' => $this->faker->unique()->safeEmail()
         ];
     }
 }
