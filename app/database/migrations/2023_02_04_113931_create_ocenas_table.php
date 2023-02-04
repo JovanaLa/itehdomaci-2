@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps('datum_i_vreme');
             $table->foreignId('korisnik');
             $table->foreignId('film');
-            $table->integer('ocena);
+            $table->integer('ocena');
             $table->text('poruka')->nullable(); 
          
            
