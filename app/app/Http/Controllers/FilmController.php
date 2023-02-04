@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Film;
 use Illuminate\Http\Request;
+use App\Models\Film;
+use App\Http\Resources\FilmResource;
+use App\Http\Resources\FilmCollection;
 
 class FilmController extends Controller
 {
@@ -14,7 +16,7 @@ class FilmController extends Controller
      */
     public function index()
     {
-        //
+        return new FilmCollection(Film::all());
     }
 
     /**
@@ -46,7 +48,7 @@ class FilmController extends Controller
      */
     public function show(Film $film)
     {
-        //
+        return new FilmResource($film);
     }
 
     /**

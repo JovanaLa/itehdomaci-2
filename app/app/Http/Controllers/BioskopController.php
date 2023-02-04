@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Bioskop;
 use Illuminate\Http\Request;
+use App\Http\Resources\BioskopResource;
+use App\Http\Resources\BioskopCollection;
 
 class BioskopController extends Controller
 {
@@ -14,7 +16,8 @@ class BioskopController extends Controller
      */
     public function index()
     {
-        //
+        $bioskopi = Bioskop::all();
+        return new BioskopCollection($bioskopi);
     }
 
     /**

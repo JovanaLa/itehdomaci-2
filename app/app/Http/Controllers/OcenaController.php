@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Ocena;
 use Illuminate\Http\Request;
+use App\Models\Bioskop;
+use App\Models\Film;
+use App\Http\Resources\OcenaResource;
+use App\Http\Resources\OcenaCollection;
 
 class OcenaController extends Controller
 {
@@ -14,7 +18,7 @@ class OcenaController extends Controller
      */
     public function index()
     {
-        //
+        return new OcenaCollection(Ocena::all());
     }
 
     /**
@@ -46,7 +50,7 @@ class OcenaController extends Controller
      */
     public function show(Ocena $ocena)
     {
-        //
+        return new OcenaResource($ocena);
     }
 
     /**
