@@ -27,4 +27,12 @@ class Ocena extends Model
     {
         return $this->belongsTo(Bioskop::class, 'bioskop');
     }
+    protected $fillable = [
+        'datum_i_vreme',
+        'film',
+        'bioskop',
+        'korisnik',
+        'poruka',
+        'ocena'
+    ];
 }

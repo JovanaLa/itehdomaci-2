@@ -16,4 +16,10 @@ class Bioskop extends Model
     {
         return $this->hasMany(Ocena::class);
     }
+    protected $fillable = [
+        'naziv',
+        'email',
+        'kontakt',
+        'lokacija'
+    ];
 }

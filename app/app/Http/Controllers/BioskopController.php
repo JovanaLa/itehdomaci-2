@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\BioskopResource;
 use App\Http\Resources\BioskopCollection;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 class BioskopController extends Controller
 {
@@ -39,7 +40,25 @@ class BioskopController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'naziv' => 'required|string|max:150',
+            'kontakt' => 'required|string|max:150|unique:bioskop',
+            'lokacija' => 'required|string|max:150',
+            'email' => 'required|email|unique:bioskop',
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+        $bioskop = Bioskop::create([
+            'naziv' => $request->naziv,
+            'kontakt' => $request->kontakt,
+            'lokacija' => $request->lokacija,
+            'email' => $request->email,
+        ]);
+
+        return response()->json(['Bioskop je uspešno kreiran.', new BioskopResource($bioskop)]);
+
     }
 
     /**
@@ -73,7 +92,25 @@ class BioskopController extends Controller
      */
     public function update(Request $request, Bioskop $bioskop)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'naziv' => 'required|string|max:150',
+            'kontakt' => 'required|string|max:150|unique:bioskop,' . $bioskop->id,
+            'lokacija' => 'required|string|max:150',
+            'email' => 'required|email|unique:bioskop,email,' . $bioskop->id,
+        ]);
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+
+        $bioskop->naziv = $request->naziv;
+        $bioskop->kontakt = $request->kontakt;
+        $bioskop->lokacija = $request->lokacija;
+        $bioskop->email = $request->email;
+
+        $bioskop->save();
+
+        return response()->json(['Bioskop je uspešno kreiran.', new BioskopResource($bioskop)]);
+
     }
 
     /**
@@ -84,6 +121,8 @@ class BioskopController extends Controller
      */
     public function destroy(Bioskop $bioskop)
     {
-        //
+        $bioskop->delete();
+
+        return response()->json('Bioskop je uspešno obrisan.');
     }
 }

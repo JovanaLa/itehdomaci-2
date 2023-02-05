@@ -17,4 +17,7 @@ class Film extends Model
     {
         return $this->hasMany(Ocena::class);
     }
+    protected $fillable = [
+        'name',
+    ];
 }

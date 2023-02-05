@@ -7,6 +7,7 @@ use App\Models\Film;
 use App\Http\Resources\FilmResource;
 use App\Http\Resources\FilmCollection;
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 
 class FilmController extends Controller
 {
@@ -27,7 +28,7 @@ class FilmController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -38,9 +39,20 @@ class FilmController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
 
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:150|unique:film',
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+        $film = Film::create([
+            'name' => $request->name,
+        ]);
+
+        return response()->json(['Film je uspešno kreiran.', new FilmResource($film)]);
+    }
     /**
      * Display the specified resource.
      *
@@ -72,7 +84,18 @@ class FilmController extends Controller
      */
     public function update(Request $request, Film $film)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:150|unique:film,name,' . $film->id,
+        ]);
+
+        if ($validator->fails())
+            return response()->json($validator->errors());
+
+
+        $film->name = $request->name;
+
+        $film->save();
+        return response()->json(['Film je uspešno kreiran.', new FilmResource($film)]);
     }
 
     /**
@@ -83,6 +106,6 @@ class FilmController extends Controller
      */
     public function destroy(Film $film)
     {
-        //
+        return response()->json('Film je uspešno obrisan.');
     }
 }
