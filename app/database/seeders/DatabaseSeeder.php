@@ -8,6 +8,8 @@ use \App\Models\User;
 use \App\Models\Bioskop;
 use \App\Models\Film;
 use \App\Models\Ocena;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -31,6 +33,16 @@ class DatabaseSeeder extends Seeder
 
         User::factory(5)->create();
         Bioskop::factory(10)->create();
+
+
+        $user = User::create([
+            'name' => 'Jovana',
+            'email' => 'jovanalazarevic394@gmail.com',
+            'password' => Hash::make('Jovana.2000'),
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'role' => 'admin'
+        ]);
 
         $film1 = Film::create([
             'name' => 'Avatar'
