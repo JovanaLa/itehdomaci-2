@@ -98,8 +98,7 @@ class BioskopController extends Controller
             'lokacija' => 'required|string|max:150',
             'email' => 'required|email|unique:bioskop,email,' . $bioskop->id,
         ]);
-        if ($validator->fails())
-            return response()->json($validator->errors());
+        if ($validator->fails()) return response()->json($validator->errors());
 
 
         $bioskop->naziv = $request->naziv;
