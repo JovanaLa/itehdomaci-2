@@ -2,9 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\OceneController;
+use App\Http\Controllers\OcenaController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\BioskopController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,5 @@ Route::resource('filmovi', FilmController::class);
 Route::resource('bioskopi', BioskopController::class);
 
 Route::resource('ocene', OcenaController::class);
+
+Route::resource('users', UserController::class)->only(['index', 'show']);

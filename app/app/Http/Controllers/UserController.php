@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Film;
-use App\Http\Resources\FilmResource;
-use App\Http\Resources\FilmCollection;
 use App\Models\User;
+use Illuminate\Http\Request;
 
-class FilmController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +14,7 @@ class FilmController extends Controller
      */
     public function index()
     {
-        return new FilmCollection(Film::all());
+        //
     }
 
     /**
@@ -44,21 +41,21 @@ class FilmController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Film  $film
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(Film $film)
+    public function show(User $user)
     {
-        return new FilmResource($film);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Film  $film
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(Film $film)
+    public function edit(User $user)
     {
         //
     }
@@ -67,10 +64,10 @@ class FilmController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Film  $film
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Film $film)
+    public function update(Request $request, User $user)
     {
         //
     }
@@ -78,10 +75,10 @@ class FilmController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Film  $film
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Film $film)
+    public function destroy(User $user)
     {
         //
     }

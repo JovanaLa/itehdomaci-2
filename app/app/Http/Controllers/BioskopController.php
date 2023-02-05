@@ -6,6 +6,7 @@ use App\Models\Bioskop;
 use Illuminate\Http\Request;
 use App\Http\Resources\BioskopResource;
 use App\Http\Resources\BioskopCollection;
+use App\Models\User;
 
 class BioskopController extends Controller
 {
