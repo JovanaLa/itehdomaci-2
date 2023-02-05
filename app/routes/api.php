@@ -6,6 +6,9 @@ use App\Http\Controllers\OcenaController;
 use App\Http\Controllers\FilmController;
 use App\Http\Controllers\BioskopController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserOcenaController;
+use App\Http\Controllers\BioskopOcenaController;
+use App\Http\Controllers\FilmOcenaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,14 +21,21 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('filmovi', FilmController::class);
+Route::resource('film', FilmController::class);
 
-Route::resource('bioskopi', BioskopController::class);
+Route::resource('bioskop', BioskopController::class);
 
-Route::resource('ocene', OcenaController::class);
+Route::resource('ocena', OcenaController::class);
 
 Route::resource('users', UserController::class)->only(['index', 'show']);
+
+
+Route::get('/users/{id}/ocena', [UserOcenaController::class, 'index']);
+
+Route::get('/bioskop/{id}/ocena', [FilmOcenaController::class, 'index']);
+
+Route::get('/film/{id}/ocena', [FilmOcenaController::class, 'index']);

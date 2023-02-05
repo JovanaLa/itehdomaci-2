@@ -67,7 +67,7 @@ class DatabaseSeeder extends Seeder
             'film' => 2,
             'bioskop' => 2,
             'ocena' => 5,
-            'poruka' => 'Odlična gluma, prijatno osoblje.'
+            'poruka' => 'Odlična gluma, prijatno'
         ]);
     }
 }

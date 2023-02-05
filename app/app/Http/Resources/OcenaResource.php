@@ -2,6 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\UserResource;
+use App\Http\Resources\FilmResource;
+use App\Http\Resources\BioskopResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OcenaResource extends JsonResource
@@ -17,8 +20,9 @@ class OcenaResource extends JsonResource
     {
         return [
             'datum_i_vreme' => $this->resource->datum_i_vreme,
-            'korisnik' => $this->resource->korisnik,
-            'film' => $this->resource->film,
+            'korisnik' => new UserResource($this->resource->userkey),
+            'film' => new FilmResource($this->resource->filmkey),
+            'bioskop' => new BioskopResource($this->resource->bioskopkey),
             'ocena' => $this->resource->ocena,
             'poruka' => $this->resource->poruka,
 
