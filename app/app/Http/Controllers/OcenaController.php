@@ -16,6 +16,7 @@ class OcenaController extends Controller
 
     public function index()
     {
+
         return new OcenaCollection(Ocena::all());
     }
 

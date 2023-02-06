@@ -12,7 +12,18 @@ class UserOcenaController extends Controller
     {
         $ocena = Ocena::get()->where('korisnik', $user_id);
         if (count($ocena) == 0)
-            return response()->json('podaci nisu pronađeni', 404);
+            return response()->json('Nema podataka', 404);
         return new OcenaCollection($ocena);
+    }
+
+    public function myapprat()
+    {
+        if (auth()->user()->isAdmin())
+            return response()->json('Nemate dozvolu za ocene.');
+        $ocena = Ocena::get()->where('korisnik', auth()->user()->id);
+        if (count($ocena) == 0)
+            return response()->json('Nema podataka', 404);
+        return new Ocena($ocena);
+
     }
 }
