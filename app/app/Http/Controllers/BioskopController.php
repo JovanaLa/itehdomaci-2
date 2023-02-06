@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ocena;
+use App\Models\Film;
 use App\Models\Bioskop;
 use Illuminate\Http\Request;
 use App\Http\Resources\BioskopResource;
@@ -11,33 +13,20 @@ use Illuminate\Support\Facades\Validator;
 
 class BioskopController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $bioskopi = Bioskop::all();
         return new BioskopCollection($bioskopi);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -50,6 +39,9 @@ class BioskopController extends Controller
         if ($validator->fails())
             return response()->json($validator->errors());
 
+        if (auth()->user()->isUser())
+            return response()->json('Niste ovlašćeni da kreirate nove bioskope.');
+
         $bioskop = Bioskop::create([
             'naziv' => $request->naziv,
             'kontakt' => $request->kontakt,
@@ -61,35 +53,18 @@ class BioskopController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Bioskop  $bioskop
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Bioskop $bioskop)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Bioskop  $bioskop
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Bioskop $bioskop)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Bioskop  $bioskop
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Bioskop $bioskop)
     {
         $validator = Validator::make($request->all(), [
@@ -98,8 +73,11 @@ class BioskopController extends Controller
             'lokacija' => 'required|string|max:150',
             'email' => 'required|email|unique:bioskop,email,' . $bioskop->id,
         ]);
-        if ($validator->fails()) return response()->json($validator->errors());
+        if ($validator->fails())
+            return response()->json($validator->errors());
 
+        if (auth()->user()->isUser())
+            return response()->json('Niste ovlašćeni da ažurirate bioskop.');
 
         $bioskop->naziv = $request->naziv;
         $bioskop->kontakt = $request->kontakt;
@@ -108,18 +86,15 @@ class BioskopController extends Controller
 
         $bioskop->save();
 
-        return response()->json(['Bioskop je uspešno kreiran.', new BioskopResource($bioskop)]);
+        return response()->json(['Bioskop je uspešno ažuriran.', new BioskopResource($bioskop)]);
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Bioskop  $bioskop
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Bioskop $bioskop)
     {
+        if (auth()->user()->isUser())
+            return response()->json('Niste ovlašćeni da obrišete bioskop');
         $bioskop->delete();
 
         return response()->json('Bioskop je uspešno obrisan.');
