@@ -31,10 +31,10 @@ class OcenaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'datum_i_vreme' => 'required|date',
-            'film' => 'required|numeric|digits_between:1,5',
+            'film' => 'required|numeric|lte:5|gte:1',
             'ocena' => 'required|numeric|lte:5|gte:1',
             'poruka' => 'required|string|min:20',
-            'bioskop' => 'required|numeric|digits_between:1,5',
+            'bioskop' => 'required|numeric|lte:5|gte:1',
         ]);
 
         if ($validator->fails())
@@ -76,10 +76,10 @@ class OcenaController extends Controller
         $validator = Validator::make($request->all(), [
             'datum_i_vreme' => 'required|date',
             'korisnik' => 'required|numeric|digits_between:1,5',
-            'film' => 'required|numeric|digits_between:1,5',
+            'film' => 'required|numeric|lte:5|gte:1',
             'ocena' => 'required|numeric|lte:5|gte:1',
             'poruka' => 'required|string|min:20',
-            'bioskop' => 'required|numeric|digits_between:1,5',
+            'bioskop' => 'required|numeric|lte:5|gte:1',
         ]);
 
         if ($validator->fails())

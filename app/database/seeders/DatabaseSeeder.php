@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
 
         $ocena1 = Ocena::create([
             'datum_i_vreme' => now(),
-            'korisnik' => 1,
+            'korisnik' => 2,
             'film' => 1,
             'bioskop' => 1,
             'ocena' => 5,
@@ -75,7 +75,7 @@ class DatabaseSeeder extends Seeder
 
         $ocena2 = Ocena::create([
             'datum_i_vreme' => now(),
-            'korisnik' => 2,
+            'korisnik' => 3,
             'film' => 2,
             'bioskop' => 2,
             'ocena' => 5,

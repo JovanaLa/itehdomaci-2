@@ -56,7 +56,7 @@ class BioskopController extends Controller
 
     public function show(Bioskop $bioskop)
     {
-        //
+        return new BioskopResource($bioskop);
     }
 
 
@@ -64,12 +64,13 @@ class BioskopController extends Controller
     {
         //
     }
+    /*** @param  int  $id */
 
     public function update(Request $request, Bioskop $bioskop)
     {
         $validator = Validator::make($request->all(), [
             'naziv' => 'required|string|max:150',
-            'kontakt' => 'required|string|max:150|unique:bioskop,' . $bioskop->id,
+            'kontakt' => 'required|string|max:150|unique:bioskop,kontakt,' . $bioskop->id,
             'lokacija' => 'required|string|max:150',
             'email' => 'required|email|unique:bioskop,email,' . $bioskop->id,
         ]);
@@ -91,10 +92,15 @@ class BioskopController extends Controller
     }
 
 
+
     public function destroy(Bioskop $bioskop)
     {
         if (auth()->user()->isUser())
             return response()->json('Niste ovlašćeni da obrišete bioskop');
+
+        $ocena = Ocena::get()->where('bioskop', $bioskop->id);
+        if (count($ocena) > 0)
+            return response()->json('Ne mozete da izbrisete ocene.');
         $bioskop->delete();
 
         return response()->json('Bioskop je uspešno obrisan.');

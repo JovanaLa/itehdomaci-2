@@ -9,6 +9,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserOcenaController;
 use App\Http\Controllers\BioskopOcenaController;
 use App\Http\Controllers\FilmOcenaController;
+use App\Http\Controllers\API\AuthController;
+use App\Http\Resources\UserResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,21 +23,37 @@ use App\Http\Controllers\FilmOcenaController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/users', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->get('/myprofile', function (Request $request) {
+    return new UserResource($request->user());
 });
 
-Route::resource('film', FilmController::class);
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    //metode kojima moze da pristupi admin
+    Route::resource('film', FilmController::class)->only(['store', 'update', 'destroy']);
+    Route::resource('bioskop', BioskopController::class)->only(['store', 'update', 'destroy']);
+    Route::resource('users', UserController::class)->only(['destroy']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::resource('users', UserController::class)->only(['index', 'show']);
 
-Route::resource('bioskop', BioskopController::class);
+    //korisnik moze da pristupi metodi
+    Route::resource('ocena', OcenaController::class)->only(['store', 'update', 'destroy']);
 
-Route::resource('ocena', OcenaController::class);
+    // svi
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/myapprat', [UserOcenaController::class, 'myapprat']);
+    Route::resource('users', UserController::class)->only(['update']);
+});
 
-Route::resource('users', UserController::class)->only(['index', 'show']);
+Route::resource('film', FilmController::class)->only(['index', 'show']);
 
+Route::resource('bioskop', BioskoprController::class)->only(['index', 'show']);
+
+Route::resource('ocena', OcenaController::class)->only(['index', 'show']);
 
 Route::get('/users/{id}/ocena', [UserOcenaController::class, 'index']);
 
 Route::get('/bioskop/{id}/ocena', [FilmOcenaController::class, 'index']);
 
 Route::get('/film/{id}/ocena', [FilmOcenaController::class, 'index']);
+
+Route::post('/login', [AuthController::class, 'login']);

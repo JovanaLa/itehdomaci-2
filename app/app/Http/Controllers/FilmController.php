@@ -78,6 +78,9 @@ class FilmController extends Controller
     {
         if (auth()->user()->isUser())
             return response()->json('Niste ovlašćeni da brišete film.');
+        $ocena = Ocena::get()->where('film', $film->id);
+        if (count($ocena) > 0)
+            return response()->json('Ne mozete da obrisete film koji ima ocenu ');
         $film->delete();
         return response()->json('Film je uspešno obrisan.');
     }
