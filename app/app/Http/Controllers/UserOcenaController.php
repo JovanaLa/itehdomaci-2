@@ -23,7 +23,7 @@ class UserOcenaController extends Controller
         $ocena = Ocena::get()->where('korisnik', auth()->user()->id);
         if (count($ocena) == 0)
             return response()->json('Nema podataka', 404);
-        return new Ocena($ocena);
+        return new OcenaCollection($ocena);
 
     }
 }

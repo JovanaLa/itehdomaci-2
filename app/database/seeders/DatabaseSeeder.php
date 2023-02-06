@@ -44,6 +44,15 @@ class DatabaseSeeder extends Seeder
             'role' => 'admin'
         ]);
 
+        $user = User::create([
+            'name' => 'Mia',
+            'email' => 'mia@gmail.com',
+            'password' => Hash::make('MiaLozinka2000!'),
+            'email_verified_at' => now(),
+            'remember_token' => Str::random(10),
+            'role' => 'user'
+        ]);
+
         $film1 = Film::create([
             'name' => 'Avatar'
         ]);
@@ -75,7 +84,7 @@ class DatabaseSeeder extends Seeder
 
         $ocena2 = Ocena::create([
             'datum_i_vreme' => now(),
-            'korisnik' => 3,
+            'korisnik' => 7,
             'film' => 2,
             'bioskop' => 2,
             'ocena' => 5,

@@ -38,7 +38,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //korisnik moze da pristupi metodi
     Route::resource('ocena', OcenaController::class)->only(['store', 'update', 'destroy']);
 
-    // svi
+    // svi ulogovani
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/myapprat', [UserOcenaController::class, 'myapprat']);
     Route::resource('users', UserController::class)->only(['update']);
