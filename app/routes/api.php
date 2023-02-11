@@ -46,7 +46,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 Route::resource('film', FilmController::class)->only(['index', 'show']);
 
-Route::resource('bioskop', BioskoprController::class)->only(['index', 'show']);
+Route::resource('bioskop', BioskopController::class)->only(['index', 'show']);
 
 Route::resource('ocena', OcenaController::class)->only(['index', 'show']);
 

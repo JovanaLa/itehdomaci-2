@@ -100,7 +100,7 @@ class OcenaController extends Controller
 
         $ocena->save();
 
-        return response()->json(['Ocena je uspešno kreirana.', new OcenaResource($ocena)]);
+        return response()->json(['Ocena je uspešno azuirirana.', new OcenaResource($ocena)]);
     }
 
 

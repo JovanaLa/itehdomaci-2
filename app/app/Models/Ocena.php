@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ocena extends Model
 {
+   
     protected $table = 'ocena';
     public $primaryKey = 'id';
     public function userkey()
